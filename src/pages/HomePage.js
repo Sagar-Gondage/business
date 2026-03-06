@@ -782,6 +782,16 @@ const HomePage = () => {
             <div className="space-y-4 md:space-y-6">
               <div className="p-6 rounded-2xl transition duration-300 transform hover:scale-105 backdrop-blur-sm animate-fadeInUp" style={{ background: 'linear-gradient(135deg, rgba(77, 138, 201, 0.2) 0%, rgba(58, 107, 165, 0.2) 100%)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
                 <div className="flex items-center gap-4">
+                  <div className="text-4xl">👤</div>
+                  <div>
+                    <h3 className="text-xl font-bold mb-1" style={{ color: '#ffffff' }}>Name</h3>
+                    <p style={{ color: '#b0c4de' }}>Sagar Gondage</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="p-6 rounded-2xl transition duration-300 transform hover:scale-105 backdrop-blur-sm animate-fadeInUp" style={{ animationDelay: '0.05s', background: 'linear-gradient(135deg, rgba(77, 138, 201, 0.2) 0%, rgba(58, 107, 165, 0.2) 100%)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <div className="flex items-center gap-4">
                   <div className="text-4xl">✉️</div>
                   <div>
                     <h3 className="text-xl font-bold mb-1" style={{ color: '#ffffff' }}>Email</h3>
@@ -800,12 +810,12 @@ const HomePage = () => {
                 </div>
               </div>
               
-              <div className="p-6 rounded-2xl transition duration-300 transform hover:scale-105 backdrop-blur-sm animate-fadeInUp" style={{ animationDelay: '0.2s', background: 'linear-gradient(135deg, rgba(77, 138, 201, 0.2) 0%, rgba(58, 107, 165, 0.2) 100%)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+              <div className="p-6 rounded-2xl transition duration-300 transform hover:scale-105 backdrop-blur-sm animate-fadeInUp" style={{ animationDelay: '0.15s', background: 'linear-gradient(135deg, rgba(77, 138, 201, 0.2) 0%, rgba(58, 107, 165, 0.2) 100%)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
                 <div className="flex items-center gap-4">
                   <div className="text-4xl">📍</div>
                   <div>
                     <h3 className="text-xl font-bold mb-1" style={{ color: '#ffffff' }}>Address</h3>
-                    <p style={{ color: '#b0c4de' }}>BTM 2nd Stage, Bengaluru, 560076</p>
+                    <p style={{ color: '#b0c4de' }}>22/1, 3rd Main Road, BTM 2nd state, Bengalure - 560076</p>
                   </div>
                 </div>
               </div>
@@ -909,6 +919,7 @@ const HomePage = () => {
           <div className="flex flex-col items-center gap-4 md:gap-6">
             <div className="text-gray-400">
               <p className="font-semibold text-white mb-2 text-base md:text-lg">© 2026 ShopHubSolutions</p>
+              <p className="text-xs md:text-sm mb-1">Sagar Gondage</p>
               <p className="text-xs md:text-sm">Building exceptional digital experiences</p>
             </div>
             
