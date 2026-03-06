@@ -47,6 +47,14 @@ const Header = ({ onNavClick, activeSection }) => {
             <span className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#4d8ac9' }}></span>
           </button>
           <button
+            onClick={() => handleNavClick('pricing')}
+            className={`${activeSection === 'pricing' ? 'text-white' : 'text-gray-300'} hover:text-white font-medium transition relative group`}
+          >
+            Pricing
+            <span className="absolute bottom-0 left-0 h-0.5 transition-all duration-300" style={{ width: activeSection === 'pricing' ? '100%' : '0', backgroundColor: '#4d8ac9' }}></span>
+            <span className="absolute bottom-0 left-0 w-0 h-0.5 group-hover:w-full transition-all duration-300" style={{ backgroundColor: '#4d8ac9' }}></span>
+          </button>
+          <button
             onClick={() => handleNavClick('contact')}
             className="px-6 py-2 font-medium rounded-full transition transform hover:scale-105"
             style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}
@@ -92,6 +100,12 @@ const Header = ({ onNavClick, activeSection }) => {
               className={`${activeSection === 'services' ? 'text-white' : 'text-gray-300'} hover:text-white font-medium transition text-left py-2 px-4 rounded-lg ${activeSection === 'services' ? 'bg-blue-900 bg-opacity-30' : ''}`}
             >
               Services
+            </button>
+            <button
+              onClick={() => handleNavClick('pricing')}
+              className={`${activeSection === 'pricing' ? 'text-white' : 'text-gray-300'} hover:text-white font-medium transition text-left py-2 px-4 rounded-lg ${activeSection === 'pricing' ? 'bg-blue-900 bg-opacity-30' : ''}`}
+            >
+              Pricing
             </button>
             <button
               onClick={() => handleNavClick('contact')}
