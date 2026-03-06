@@ -6,7 +6,6 @@ const HomePage = () => {
   const homeRef = useRef(null);
   const projectsRef = useRef(null);
   const servicesRef = useRef(null);
-  const pricingRef = useRef(null);
   const contactRef = useRef(null);
   const [activeSection, setActiveSection] = useState('home');
   
@@ -43,7 +42,6 @@ const HomePage = () => {
         { id: 'home', ref: homeRef },
         { id: 'projects', ref: projectsRef },
         { id: 'services', ref: servicesRef },
-        { id: 'pricing', ref: pricingRef },
         { id: 'contact', ref: contactRef },
       ];
 
@@ -266,7 +264,6 @@ const HomePage = () => {
       home: homeRef,
       projects: projectsRef,
       services: servicesRef,
-      pricing: pricingRef,
       contact: contactRef,
     };
 
@@ -295,10 +292,10 @@ const HomePage = () => {
             </button>
 
             <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: '#1d283a' }}>
-              {selectedPlan === 'Enterprise' ? 'Contact Sales' : 'Get Started'}
+              Get Started with {selectedPlan}
             </h3>
             <p className="mb-6" style={{ color: '#4a5f77' }}>
-              {selectedPlan} Plan - Fill in your details and we'll get back to you
+              Fill in your details and we'll get back to you
             </p>
 
             {pricingSubmitStatus && (
@@ -545,14 +542,10 @@ const HomePage = () => {
               <div className="text-5xl mb-4">💻</div>
               <h3 className="text-2xl font-bold mb-4" style={{ color: '#1d283a' }}>Web Development</h3>
               <p className="mb-4 font-semibold" style={{ color: '#1d283a' }}>Custom websites that stand out with modern design and functionality</p>
-              <ul className="space-y-2" style={{ color: '#4a5f77' }}>
+              <ul className="space-y-2 mb-6" style={{ color: '#4a5f77' }}>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
                   <span>Responsive design for all devices</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="mr-2">✓</span>
-                  <span>SEO optimization</span>
                 </li>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
@@ -566,7 +559,22 @@ const HomePage = () => {
                   <span className="mr-2">✓</span>
                   <span>Accessibility compliance</span>
                 </li>
+                <li className="flex items-start">
+                  <span className="mr-2">✓</span>
+                  <span>Modern UI/UX design</span>
+                </li>
               </ul>
+              <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
+                <div className="flex items-baseline justify-between mb-4">
+                  <div>
+                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹15,000</span>
+                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
+                  </div>
+                </div>
+                <button onClick={() => openPricingModal('Web Development')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Get Started
+                </button>
+              </div>
             </div>
 
             {/* Service 2 - E-commerce Solutions */}
@@ -575,7 +583,7 @@ const HomePage = () => {
               <div className="text-5xl mb-4">🛒</div>
               <h3 className="text-2xl font-bold mb-4" style={{ color: '#1d283a' }}>E-commerce Solutions</h3>
               <p className="mb-4 font-semibold" style={{ color: '#1d283a' }}>Complete online store setup with seamless shopping experience</p>
-              <ul className="space-y-2" style={{ color: '#4a5f77' }}>
+              <ul className="space-y-2 mb-6" style={{ color: '#4a5f77' }}>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
                   <span>Shopping cart and checkout</span>
@@ -597,6 +605,17 @@ const HomePage = () => {
                   <span>Customer analytics</span>
                 </li>
               </ul>
+              <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
+                <div className="flex items-baseline justify-between mb-4">
+                  <div>
+                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹25,000</span>
+                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
+                  </div>
+                </div>
+                <button onClick={() => openPricingModal('E-commerce Solutions')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Get Started
+                </button>
+              </div>
             </div>
 
             {/* Service 3 - Mobile Applications */}
@@ -605,7 +624,7 @@ const HomePage = () => {
               <div className="text-5xl mb-4">📱</div>
               <h3 className="text-2xl font-bold mb-4" style={{ color: '#1d283a' }}>Mobile Applications</h3>
               <p className="mb-4 font-semibold" style={{ color: '#1d283a' }}>Native and cross-platform apps for iOS and Android</p>
-              <ul className="space-y-2" style={{ color: '#4a5f77' }}>
+              <ul className="space-y-2 mb-6" style={{ color: '#4a5f77' }}>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
                   <span>iOS app development</span>
@@ -627,6 +646,17 @@ const HomePage = () => {
                   <span>Push notifications</span>
                 </li>
               </ul>
+              <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
+                <div className="flex items-baseline justify-between mb-4">
+                  <div>
+                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹30,000</span>
+                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
+                  </div>
+                </div>
+                <button onClick={() => openPricingModal('Mobile Applications')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Get Started
+                </button>
+              </div>
             </div>
 
             {/* Service 4 - Custom Web Applications */}
@@ -635,7 +665,7 @@ const HomePage = () => {
               <div className="text-5xl mb-4">⚙️</div>
               <h3 className="text-2xl font-bold mb-4" style={{ color: '#1d283a' }}>Custom Web Applications</h3>
               <p className="mb-4 font-semibold" style={{ color: '#1d283a' }}>Tailored applications for your specific business needs</p>
-              <ul className="space-y-2" style={{ color: '#4a5f77' }}>
+              <ul className="space-y-2 mb-6" style={{ color: '#4a5f77' }}>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
                   <span>Business-specific solutions</span>
@@ -657,6 +687,17 @@ const HomePage = () => {
                   <span>Scalable architecture</span>
                 </li>
               </ul>
+              <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
+                <div className="flex items-baseline justify-between mb-4">
+                  <div>
+                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹35,000</span>
+                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
+                  </div>
+                </div>
+                <button onClick={() => openPricingModal('Custom Web Applications')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Get Started
+                </button>
+              </div>
             </div>
 
             {/* Service 5 - Database & Backend Solutions */}
@@ -665,7 +706,7 @@ const HomePage = () => {
               <div className="text-5xl mb-4">🗄️</div>
               <h3 className="text-2xl font-bold mb-4" style={{ color: '#1d283a' }}>Database & Backend</h3>
               <p className="mb-4 font-semibold" style={{ color: '#1d283a' }}>Robust backend infrastructure and database solutions</p>
-              <ul className="space-y-2" style={{ color: '#4a5f77' }}>
+              <ul className="space-y-2 mb-6" style={{ color: '#4a5f77' }}>
                 <li className="flex items-start">
                   <span className="mr-2">✓</span>
                   <span>Database design and optimization</span>
@@ -687,157 +728,35 @@ const HomePage = () => {
                   <span>Performance monitoring</span>
                 </li>
               </ul>
+              <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
+                <div className="flex items-baseline justify-between mb-4">
+                  <div>
+                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹20,000</span>
+                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
+                  </div>
+                </div>
+                <button onClick={() => openPricingModal('Database & Backend')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Get Started
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
 
-      {/* Pricing Section */}
-      <section ref={pricingRef} className="min-h-screen py-12 md:py-20 px-4 md:px-8 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #f0f4f8 0%, #e8ecf1 50%, #dce4ec 100%)' }}>
-        {/* Animated Background Elements */}
-        <div className="absolute top-20 left-1/4 w-96 h-96 rounded-full filter blur-3xl opacity-30" style={{ background: 'radial-gradient(circle, rgba(77, 138, 201, 0.4) 0%, transparent 70%)' }}></div>
-        <div className="absolute bottom-20 right-1/4 w-96 h-96 rounded-full filter blur-3xl opacity-30" style={{ background: 'radial-gradient(circle, rgba(58, 107, 165, 0.4) 0%, transparent 70%)' }}></div>
-        
-        {/* Decorative Grid */}
-        <div className="absolute inset-0 opacity-5" style={{ backgroundImage: 'radial-gradient(circle, #1d283a 1px, transparent 1px)', backgroundSize: '30px 30px' }}></div>
-
-        <div className="max-w-7xl mx-auto relative z-10">
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-center mb-3 md:mb-4 animate-slideInFromLeft px-4" style={{ color: '#1d283a' }}>Simple, Transparent Pricing</h2>
-          <p className="text-center mb-8 md:mb-12 text-base md:text-lg px-4" style={{ color: '#4a5f77' }}>Choose the perfect plan for your business needs</p>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 max-w-6xl mx-auto">
-            {/* Basic Plan */}
-            <div className="rounded-2xl p-8 hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 animate-fadeInUp relative overflow-hidden" style={{ background: 'linear-gradient(135deg, #ffffff 0%, #fafbfc 100%)', border: '2px solid rgba(77, 138, 201, 0.2)', boxShadow: '0 10px 30px rgba(29, 40, 58, 0.1)' }}>
-              <div className="absolute top-0 right-0 w-32 h-32 rounded-full filter blur-2xl opacity-20" style={{ background: 'radial-gradient(circle, #4d8ac9 0%, transparent 70%)', transform: 'translate(30%, -30%)' }}></div>
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-2" style={{ color: '#1d283a' }}>Starter</h3>
-                <p className="mb-6" style={{ color: '#4a5f77' }}>Perfect for small businesses</p>
-                <div className="mb-6">
-                  <span className="text-4xl font-bold" style={{ color: '#1d283a' }}>₹15,000</span>
-                  <span className="text-lg" style={{ color: '#4a5f77' }}>/month</span>
-                </div>
-                <ul className="space-y-3 mb-8" style={{ color: '#4a5f77' }}>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Basic e-commerce website</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Up to 100 products</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Payment gateway integration</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Mobile responsive design</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Basic SEO optimization</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Email support</span>
-                  </li>
-                </ul>
-                <button onClick={() => openPricingModal('Starter')} className="w-full py-3 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #e8ecf1 0%, #dce4ec 100%)', color: '#1d283a', border: '2px solid #4d8ac9' }}>
-                  Get Started
-                </button>
-              </div>
-            </div>
-
-            {/* Professional Plan - Featured */}
-            <div className="rounded-2xl p-8 hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 animate-fadeInUp relative overflow-hidden scale-105" style={{ animationDelay: '0.1s', background: 'linear-gradient(135deg, #1d283a 0%, #2d3e52 100%)', border: '2px solid #4d8ac9', boxShadow: '0 20px 40px rgba(29, 40, 58, 0.3)' }}>
-              <div className="absolute top-0 right-0 px-4 py-1 rounded-bl-lg font-bold text-sm" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>POPULAR</div>
-              <div className="absolute top-0 right-0 w-32 h-32 rounded-full filter blur-2xl opacity-30" style={{ background: 'radial-gradient(circle, #4d8ac9 0%, transparent 70%)', transform: 'translate(30%, -30%)' }}></div>
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-2" style={{ color: '#ffffff' }}>Professional</h3>
-                <p className="mb-6" style={{ color: '#b0c4de' }}>Best for growing businesses</p>
-                <div className="mb-6">
-                  <span className="text-4xl font-bold" style={{ color: '#ffffff' }}>₹35,000</span>
-                  <span className="text-lg" style={{ color: '#b0c4de' }}>/month</span>
-                </div>
-                <ul className="space-y-3 mb-8" style={{ color: '#d4dfe8' }}>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-400 font-bold">✓</span>
-                    <span>Advanced e-commerce platform</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-400 font-bold">✓</span>
-                    <span>Unlimited products</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-400 font-bold">✓</span>
-                    <span>Multi-payment gateways</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-400 font-bold">✓</span>
-                    <span>Custom design & branding</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-400 font-bold">✓</span>
-                    <span>Advanced SEO & analytics</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-400 font-bold">✓</span>
-                    <span>Inventory management</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-400 font-bold">✓</span>
-                    <span>Priority support (24/7)</span>
-                  </li>
-                </ul>
-                <button onClick={() => openPricingModal('Professional')} className="w-full py-3 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff', boxShadow: '0 4px 15px rgba(77, 138, 201, 0.4)' }}>
-                  Get Started
-                </button>
-              </div>
-            </div>
-
-            {/* Enterprise Plan */}
-            <div className="rounded-2xl p-8 hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 animate-fadeInUp relative overflow-hidden" style={{ animationDelay: '0.2s', background: 'linear-gradient(135deg, #ffffff 0%, #fafbfc 100%)', border: '2px solid rgba(77, 138, 201, 0.2)', boxShadow: '0 10px 30px rgba(29, 40, 58, 0.1)' }}>
-              <div className="absolute top-0 right-0 w-32 h-32 rounded-full filter blur-2xl opacity-20" style={{ background: 'radial-gradient(circle, #4d8ac9 0%, transparent 70%)', transform: 'translate(30%, -30%)' }}></div>
-              <div className="relative z-10">
-                <h3 className="text-2xl font-bold mb-2" style={{ color: '#1d283a' }}>Enterprise</h3>
-                <p className="mb-6" style={{ color: '#4a5f77' }}>For large-scale operations</p>
-                <div className="mb-6">
-                  <span className="text-4xl font-bold" style={{ color: '#1d283a' }}>Custom</span>
-                </div>
-                <ul className="space-y-3 mb-8" style={{ color: '#4a5f77' }}>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Full marketplace platform</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Multi-vendor support</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Custom integrations</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>White-label solution</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Dedicated infrastructure</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Advanced security features</span>
-                  </li>
-                  <li className="flex items-start">
-                    <span className="mr-2 text-green-500 font-bold">✓</span>
-                    <span>Dedicated account manager</span>
-                  </li>
-                </ul>
-                <button onClick={() => openPricingModal('Enterprise')} className="w-full py-3 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #e8ecf1 0%, #dce4ec 100%)', color: '#1d283a', border: '2px solid #4d8ac9' }}>
-                  Contact Sales
-                </button>
-              </div>
+          {/* Custom Plans Note */}
+          <div className="mt-12 text-center max-w-3xl mx-auto">
+            <div className="rounded-2xl p-6 md:p-8 relative overflow-hidden" style={{ background: 'linear-gradient(135deg, rgba(77, 138, 201, 0.1) 0%, rgba(58, 107, 165, 0.1) 100%)', border: '2px solid rgba(77, 138, 201, 0.3)' }}>
+              <div className="text-4xl mb-3">💡</div>
+              <h3 className="text-xl md:text-2xl font-bold mb-3" style={{ color: '#1d283a' }}>Need More Advanced Features?</h3>
+              <p className="text-base md:text-lg mb-4" style={{ color: '#4a5f77' }}>
+                If you need additional features or a fully customized solution beyond our standard offerings, we have flexible custom plans available.
+              </p>
+              <button 
+                onClick={() => scrollToSection('contact')} 
+                className="px-6 md:px-8 py-3 font-bold rounded-lg transition duration-300 transform hover:scale-105"
+                style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff', boxShadow: '0 4px 15px rgba(77, 138, 201, 0.3)' }}
+              >
+                Reach Out for Custom Plans →
+              </button>
             </div>
           </div>
         </div>

@@ -15,7 +15,7 @@ exports.handler = async (event, context) => {
       return {
         statusCode: 400,
         body: JSON.stringify({ 
-          message: 'Missing required fields. Please provide name, email, phone, and plan.' 
+          message: 'Missing required fields. Please provide name, email, phone, and service.' 
         }),
       };
     }
@@ -50,10 +50,10 @@ exports.handler = async (event, context) => {
       statusCode: 200,
       body: JSON.stringify({
         success: true,
-        message: `Thank you for your interest in the ${plan} plan! Our team will contact you within 24 hours.`,
+        message: `Thank you for your interest in ${plan}! Our team will contact you within 24 hours.`,
         data: {
           inquiryId: `INQ-${Date.now()}`,
-          plan: plan,
+          service: plan,
           name: name,
         },
       }),
