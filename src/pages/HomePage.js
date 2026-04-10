@@ -20,21 +20,6 @@ const HomePage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null); // 'success' or 'error'
   const [submitMessage, setSubmitMessage] = useState('');
-  
-  // Pricing modal state
-  const [isPricingModalOpen, setIsPricingModalOpen] = useState(false);
-  const [selectedPlan, setSelectedPlan] = useState('');
-  const [pricingFormData, setPricingFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    company: '',
-    message: ''
-  });
-  const [pricingFormErrors, setPricingFormErrors] = useState({});
-  const [isPricingSubmitting, setIsPricingSubmitting] = useState(false);
-  const [pricingSubmitStatus, setPricingSubmitStatus] = useState(null);
-  const [pricingSubmitMessage, setPricingSubmitMessage] = useState('');
 
   useEffect(() => {
     const handleScroll = () => {
@@ -154,111 +139,6 @@ const HomePage = () => {
     }
   };
 
-  // Pricing modal handlers
-  const openPricingModal = (plan) => {
-    setSelectedPlan(plan);
-    setIsPricingModalOpen(true);
-    setPricingSubmitStatus(null);
-    setPricingSubmitMessage('');
-  };
-
-  const closePricingModal = () => {
-    setIsPricingModalOpen(false);
-    setSelectedPlan('');
-    setPricingFormData({
-      name: '',
-      email: '',
-      phone: '',
-      company: '',
-      message: ''
-    });
-    setPricingFormErrors({});
-    setPricingSubmitStatus(null);
-    setPricingSubmitMessage('');
-  };
-
-  const handlePricingInputChange = (e) => {
-    const { name, value } = e.target;
-    setPricingFormData(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    if (pricingFormErrors[name]) {
-      setPricingFormErrors(prev => ({
-        ...prev,
-        [name]: ''
-      }));
-    }
-  };
-
-  const validatePricingForm = () => {
-    const errors = {};
-    
-    if (!pricingFormData.name.trim()) {
-      errors.name = 'Name is required';
-    }
-    
-    if (!pricingFormData.email.trim()) {
-      errors.email = 'Email is required';
-    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(pricingFormData.email)) {
-      errors.email = 'Please enter a valid email';
-    }
-    
-    if (!pricingFormData.phone.trim()) {
-      errors.phone = 'Phone is required';
-    }
-    
-    return errors;
-  };
-
-  const handlePricingSubmit = async (e) => {
-    e.preventDefault();
-    
-    setPricingSubmitStatus(null);
-    setPricingSubmitMessage('');
-    
-    const errors = validatePricingForm();
-    if (Object.keys(errors).length > 0) {
-      setPricingFormErrors(errors);
-      return;
-    }
-    
-    setIsPricingSubmitting(true);
-    
-    try {
-      const response = await fetch('/.netlify/functions/pricing', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...pricingFormData,
-          plan: selectedPlan
-        }),
-      });
-      
-      const data = await response.json();
-      
-      if (response.ok) {
-        setPricingSubmitStatus('success');
-        setPricingSubmitMessage(data.message || 'Thank you for your interest! Our team will contact you soon.');
-        // Reset form after 2 seconds and close modal
-        setTimeout(() => {
-          closePricingModal();
-        }, 2000);
-      } else {
-        setPricingSubmitStatus('error');
-        setPricingSubmitMessage(data.message || 'Something went wrong. Please try again.');
-      }
-    } catch (error) {
-      console.error('Error submitting pricing form:', error);
-      setPricingSubmitStatus('error');
-      setPricingSubmitMessage('Failed to send request. Please try again later.');
-    } finally {
-      setIsPricingSubmitting(false);
-    }
-  };
-
   const scrollToSection = (sectionId) => {
     const refs = {
       home: homeRef,
@@ -275,126 +155,6 @@ const HomePage = () => {
   return (
     <>
       <Header onNavClick={scrollToSection} activeSection={activeSection} />
-
-      {/* Pricing Modal */}
-      {isPricingModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 animate-fadeInUp" style={{ background: 'rgba(0, 0, 0, 0.7)', backdropFilter: 'blur(5px)' }} onClick={closePricingModal}>
-          <div className="relative w-full max-w-2xl rounded-2xl p-6 md:p-8 shadow-2xl max-h-[90vh] overflow-y-auto" style={{ background: 'linear-gradient(135deg, #ffffff 0%, #f5f7fa 100%)', border: '2px solid rgba(77, 138, 201, 0.3)' }} onClick={(e) => e.stopPropagation()}>
-            {/* Close button */}
-            <button 
-              onClick={closePricingModal}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-700 transition z-10"
-              aria-label="Close"
-            >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-
-            <h3 className="text-2xl md:text-3xl font-bold mb-2" style={{ color: '#1d283a' }}>
-              Get Started with {selectedPlan}
-            </h3>
-            <p className="mb-6" style={{ color: '#4a5f77' }}>
-              Fill in your details and we'll get back to you
-            </p>
-
-            {pricingSubmitStatus && (
-              <div className={`mb-4 p-4 rounded-lg ${pricingSubmitStatus === 'success' ? 'bg-green-100 border border-green-400 text-green-700' : 'bg-red-100 border border-red-400 text-red-700'}`}>
-                <p className="text-sm">{pricingSubmitMessage}</p>
-              </div>
-            )}
-
-            <form onSubmit={handlePricingSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-2" style={{ color: '#1d283a' }}>Full Name *</label>
-                  <input
-                    type="text"
-                    name="name"
-                    value={pricingFormData.name}
-                    onChange={handlePricingInputChange}
-                    className="w-full px-4 py-2.5 rounded-lg focus:outline-none transition duration-300"
-                    placeholder="John Doe"
-                    style={{ backgroundColor: '#f5f7fa', color: '#1d283a', border: `1px solid ${pricingFormErrors.name ? '#ef4444' : '#e0e7ff'}` }}
-                  />
-                  {pricingFormErrors.name && (
-                    <p className="text-red-600 text-xs mt-1">{pricingFormErrors.name}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2" style={{ color: '#1d283a' }}>Email *</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={pricingFormData.email}
-                    onChange={handlePricingInputChange}
-                    className="w-full px-4 py-2.5 rounded-lg focus:outline-none transition duration-300"
-                    placeholder="john@example.com"
-                    style={{ backgroundColor: '#f5f7fa', color: '#1d283a', border: `1px solid ${pricingFormErrors.email ? '#ef4444' : '#e0e7ff'}` }}
-                  />
-                  {pricingFormErrors.email && (
-                    <p className="text-red-600 text-xs mt-1">{pricingFormErrors.email}</p>
-                  )}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-                <div>
-                  <label className="block text-sm font-semibold mb-2" style={{ color: '#1d283a' }}>Phone *</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={pricingFormData.phone}
-                    onChange={handlePricingInputChange}
-                    className="w-full px-4 py-2.5 rounded-lg focus:outline-none transition duration-300"
-                    placeholder="+91 1234567890"
-                    style={{ backgroundColor: '#f5f7fa', color: '#1d283a', border: `1px solid ${pricingFormErrors.phone ? '#ef4444' : '#e0e7ff'}` }}
-                  />
-                  {pricingFormErrors.phone && (
-                    <p className="text-red-600 text-xs mt-1">{pricingFormErrors.phone}</p>
-                  )}
-                </div>
-
-                <div>
-                  <label className="block text-sm font-semibold mb-2" style={{ color: '#1d283a' }}>Company (Optional)</label>
-                  <input
-                    type="text"
-                    name="company"
-                    value={pricingFormData.company}
-                    onChange={handlePricingInputChange}
-                    className="w-full px-4 py-2.5 rounded-lg focus:outline-none transition duration-300"
-                    placeholder="Your Company Name"
-                    style={{ backgroundColor: '#f5f7fa', color: '#1d283a', border: '1px solid #e0e7ff' }}
-                  />
-                </div>
-              </div>
-
-              <div className="mb-6">
-                <label className="block text-sm font-semibold mb-2" style={{ color: '#1d283a' }}>Message (Optional)</label>
-                <textarea
-                  name="message"
-                  value={pricingFormData.message}
-                  onChange={handlePricingInputChange}
-                  rows="3"
-                  className="w-full px-4 py-2.5 rounded-lg focus:outline-none transition duration-300 resize-none"
-                  placeholder="Any specific requirements..."
-                  style={{ backgroundColor: '#f5f7fa', color: '#1d283a', border: '1px solid #e0e7ff' }}
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={isPricingSubmitting}
-                className="w-full text-white font-bold py-3 rounded-lg transition duration-300 transform hover:scale-105 shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-                style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)' }}
-              >
-                {isPricingSubmitting ? 'Submitting...' : 'Submit Request →'}
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
 
       {/* Home Section */}
       <section ref={homeRef} className="relative min-h-screen flex items-center justify-center text-white overflow-hidden" style={{ background: 'linear-gradient(135deg, #1d283a 0%, #2d3e52 50%, #1a2332 100%)' }}>
@@ -565,14 +325,8 @@ const HomePage = () => {
                 </li>
               </ul>
               <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
-                <div className="flex items-baseline justify-between mb-4">
-                  <div>
-                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹15,000</span>
-                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
-                  </div>
-                </div>
-                <button onClick={() => openPricingModal('Web Development')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
-                  Get Started
+                <button onClick={() => scrollToSection('contact')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Contact Us
                 </button>
               </div>
             </div>
@@ -606,14 +360,8 @@ const HomePage = () => {
                 </li>
               </ul>
               <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
-                <div className="flex items-baseline justify-between mb-4">
-                  <div>
-                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹25,000</span>
-                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
-                  </div>
-                </div>
-                <button onClick={() => openPricingModal('E-commerce Solutions')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
-                  Get Started
+                <button onClick={() => scrollToSection('contact')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Contact Us
                 </button>
               </div>
             </div>
@@ -647,14 +395,8 @@ const HomePage = () => {
                 </li>
               </ul>
               <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
-                <div className="flex items-baseline justify-between mb-4">
-                  <div>
-                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹30,000</span>
-                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
-                  </div>
-                </div>
-                <button onClick={() => openPricingModal('Mobile Applications')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
-                  Get Started
+                <button onClick={() => scrollToSection('contact')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Contact Us
                 </button>
               </div>
             </div>
@@ -688,14 +430,8 @@ const HomePage = () => {
                 </li>
               </ul>
               <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
-                <div className="flex items-baseline justify-between mb-4">
-                  <div>
-                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹35,000</span>
-                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
-                  </div>
-                </div>
-                <button onClick={() => openPricingModal('Custom Web Applications')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
-                  Get Started
+                <button onClick={() => scrollToSection('contact')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Contact Us
                 </button>
               </div>
             </div>
@@ -729,14 +465,8 @@ const HomePage = () => {
                 </li>
               </ul>
               <div className="border-t pt-4" style={{ borderColor: 'rgba(77, 138, 201, 0.2)' }}>
-                <div className="flex items-baseline justify-between mb-4">
-                  <div>
-                    <span className="text-3xl font-bold" style={{ color: '#1d283a' }}>₹20,000</span>
-                    <span className="text-sm ml-2" style={{ color: '#4a5f77' }}>starting</span>
-                  </div>
-                </div>
-                <button onClick={() => openPricingModal('Database & Backend')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
-                  Get Started
+                <button onClick={() => scrollToSection('contact')} className="w-full py-2.5 rounded-lg font-bold transition duration-300 transform hover:scale-105" style={{ background: 'linear-gradient(135deg, #4d8ac9 0%, #3a6ba5 100%)', color: '#ffffff' }}>
+                  Contact Us
                 </button>
               </div>
             </div>
